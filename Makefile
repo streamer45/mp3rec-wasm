@@ -25,10 +25,10 @@ encoder.wasm: vendor/lame/dist/lib/libmp3lame.a src/encoder.c
 release: encoder.wasm
 	mkdir -p release && \
 	cd release && \
-	cp -r ../dist mp3enc-wasm && \
-	tar -czvf mp3enc-wasm-${PKG_VERSION}.tar.gz mp3enc-wasm && \
-	zip -r mp3enc-wasm-${PKG_VERSION}.zip mp3enc-wasm && \
-	rm -rf mp3enc-wasm
+	cp -r ../dist mp3enc-wasm-${PKG_VERSION} && \
+	tar -czvf mp3enc-wasm-${PKG_VERSION}.tar.gz mp3enc-wasm-${PKG_VERSION} && \
+	zip -r mp3enc-wasm-${PKG_VERSION}.zip mp3enc-wasm-${PKG_VERSION} && \
+	rm -rf mp3enc-wasm-${PKG_VERSION}
 
 clean-lame:
 	cd vendor/lame && rm -rf dist && make clean
