@@ -48,33 +48,6 @@ class Recorder {
     }
   }
 
-  _startRecording() {
-    if (!this.audioCtx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) {
-        return Promise.reject(new Error('AudioCtx unsupported'));
-      }
-      this.audioCtx = new AudioContext();
-      this.worker.postMessage({
-        sampleRate: this.audioCtx.sampleRate,
-        bitRate: 64,
-        channels: 1,
-        maxDuration: 300, // 5 minutes
-      });
-    }
-    return this._startCapture().then((stream) => {
-      this.mediaStream = stream;
-      this.srcNode = this.audioCtx.createMediaStreamSource(stream);
-      this.procNode = this.audioCtx.createScriptProcessor(0, this.srcNode.channelCount, 1);
-      this.srcNode.connect(this.procNode);
-      this.procNode.onaudioprocess = this._audioProcess.bind(this);
-      this.muteNode = this.audioCtx.createGain();
-      this.muteNode.gain.value = 0.0;
-      this.procNode.connect(this.muteNode);
-      this.muteNode.connect(this.audioCtx.destination);
-    });
-  }
-
   _startWorker() {
     return new Promise((res, rej) => {
       const worker = new Worker(this.workerURL);
@@ -102,7 +75,30 @@ class Recorder {
   }
 
   start() {
-    return this._startRecording();
+    if (!this.audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) {
+        return Promise.reject(new Error('AudioCtx unsupported'));
+      }
+      this.audioCtx = new AudioContext();
+      this.worker.postMessage({
+        sampleRate: this.audioCtx.sampleRate,
+        bitRate: 64,
+        channels: 1,
+        maxDuration: 300, // 5 minutes
+      });
+    }
+    return this._startCapture().then((stream) => {
+      this.mediaStream = stream;
+      this.srcNode = this.audioCtx.createMediaStreamSource(stream);
+      this.procNode = this.audioCtx.createScriptProcessor(0, this.srcNode.channelCount, 1);
+      this.srcNode.connect(this.procNode);
+      this.procNode.onaudioprocess = this._audioProcess.bind(this);
+      this.muteNode = this.audioCtx.createGain();
+      this.muteNode.gain.value = 0.0;
+      this.procNode.connect(this.muteNode);
+      this.muteNode.connect(this.audioCtx.destination);
+    });
   }
 
   stop() {
