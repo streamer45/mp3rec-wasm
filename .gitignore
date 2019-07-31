@@ -1,4 +1,5 @@
 dist/
+release/
 vendor/lame/dist
 vendor/lame/.svn
 vendor/lame/a.out*
