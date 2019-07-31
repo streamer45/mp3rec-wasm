@@ -1,0 +1,62 @@
+tabinit.lo: tabinit.c ../config.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdlib.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/__config \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/stdlib.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdlib.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/features.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/alltypes.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/alloca.h \
+  tabinit.h mpg123.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdio.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdio.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/string.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/string.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/string.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/strings.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/signal.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/signal.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/math.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/math.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/math.h
+
+../config.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdlib.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/__config:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/stdlib.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdlib.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/features.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/alltypes.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/alloca.h:
+
+tabinit.h:
+
+mpg123.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdio.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdio.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/string.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/string.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/string.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/strings.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/signal.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/signal.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/math.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/math.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/math.h:

@@ -1,0 +1,169 @@
+interface.lo: interface.c ../config.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdlib.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/__config \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/stdlib.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdlib.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/features.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/alltypes.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/alloca.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdio.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdio.h \
+  common.h mpg123.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/string.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/string.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/string.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/strings.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/signal.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/signal.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/math.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/math.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/math.h \
+  mpglib.h ../include/lame.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stddef.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stddef.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/stdarg.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdarg.h \
+  interface.h tabinit.h layer3.h ../libmp3lame/machine.h \
+  ../libmp3lame/version.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/assert.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/limits.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/limits.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/limits.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/ctype.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/ctype.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/ctype.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/errno.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/errno.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/errno.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/fcntl.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/fcntl.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/sys/types.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/endian.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdint.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdint.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/stdint.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/sys/select.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/sys/stat.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/sys/stat.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/stat.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/inttypes.h \
+  /home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/inttypes.h \
+  ../libmp3lame/VbrTag.h decode_i386.h layer1.h layer2.h
+
+../config.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdlib.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/__config:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/stdlib.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdlib.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/features.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/alltypes.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/alloca.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdio.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdio.h:
+
+common.h:
+
+mpg123.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/string.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/string.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/string.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/strings.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/signal.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/signal.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/math.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/math.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/math.h:
+
+mpglib.h:
+
+../include/lame.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stddef.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stddef.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/stdarg.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdarg.h:
+
+interface.h:
+
+tabinit.h:
+
+layer3.h:
+
+../libmp3lame/machine.h:
+
+../libmp3lame/version.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/assert.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/limits.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/limits.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/limits.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/ctype.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/ctype.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/ctype.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/errno.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/errno.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/errno.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/fcntl.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/fcntl.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/sys/types.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/endian.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/stdint.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/stdint.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/stdint.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/sys/select.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/compat/sys/stat.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/sys/stat.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/bits/stat.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libcxx/inttypes.h:
+
+/home/streamer45/code/emsdk/upstream/emscripten/system/include/libc/inttypes.h:
+
+../libmp3lame/VbrTag.h:
+
+decode_i386.h:
+
+layer1.h:
+
+layer2.h:
