@@ -130,3 +130,7 @@ class Recorder {
     this._onData = cb;
   }
 }
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = Recorder;
+}
