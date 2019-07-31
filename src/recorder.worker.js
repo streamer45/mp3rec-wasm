@@ -23,13 +23,14 @@ function init(config) {
   const sampleRate = config.sampleRate || 44100;
   const channels = config.channels || 1;
   const maxDuration = config.maxDuration || 5 * 60; // 5 minutes
+  const numSamples = config.numSamples || MAX_NUM_SAMPLES;
   const data_sz = (bitRate / 8) * 1024 * maxDuration * 1.25; // enough space for maxDuration seconds recording
 
   state.data = new Uint8Array(data_sz);
   state.encoder = Module._encoder_create(sampleRate, channels, bitRate);
-  state.samples_ptr = Module._malloc(MAX_NUM_SAMPLES * 4);
+  state.samples_ptr = Module._malloc(config.numSamples * 4);
   state.samples = new Float32Array(Module.HEAPF32.buffer, state.samples_ptr);
-  state.coded_ptr = Module._malloc(1.25 * MAX_NUM_SAMPLES + 7200);
+  state.coded_ptr = Module._malloc(1.25 * config.numSamples + 7200);
   state.coded = new Uint8Array(Module.HEAPF32.buffer, state.coded_ptr);
   state.initialized = true;
 }

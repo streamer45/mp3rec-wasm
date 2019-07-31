@@ -9,6 +9,7 @@ class Recorder {
     this.worker = null;
     this.startTime = 0;
     this.stopTime = 0;
+    this.numSamples = config.numSamples || 4096;
     this._startWorker();
   }
 
@@ -85,13 +86,15 @@ class Recorder {
         sampleRate: this.audioCtx.sampleRate,
         bitRate: 64,
         channels: 1,
+        numSamples: this.numSamples,
         maxDuration: 300, // 5 minutes
       });
     }
     return this._startCapture().then((stream) => {
       this.mediaStream = stream;
       this.srcNode = this.audioCtx.createMediaStreamSource(stream);
-      this.procNode = this.audioCtx.createScriptProcessor(0, this.srcNode.channelCount, 1);
+      this.procNode = this.audioCtx.createScriptProcessor(this.numSamples,
+       this.srcNode.channelCount, 1);
       this.srcNode.connect(this.procNode);
       this.procNode.onaudioprocess = this._audioProcess.bind(this);
       this.muteNode = this.audioCtx.createGain();
