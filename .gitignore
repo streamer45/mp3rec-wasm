@@ -1,8 +1,10 @@
 dist/
 vendor/lame/dist
 vendor/lame/.svn
+vendor/lame/a.out*
 .libs
 *.o
 *.lo
 *.la
 *.log
+
