@@ -1,6 +1,6 @@
 all: encoder.wasm
 
-PKG_VERSION=$$(git describe --tags)
+PKG_VERSION=`git describe --tags | cut -c2-`
 
 vendor/lame/dist/lib/libmp3lame.a:
 	cd vendor/lame && \
