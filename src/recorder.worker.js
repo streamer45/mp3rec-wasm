@@ -58,17 +58,8 @@ onmessage = (ev) => {
        state.data_len);
       state.data_len += ret;
     }
-
-    console.log(state.data_len);
-
-  } else if (ev.data === 'start') {
-    console.log(ev.data);
   } else if (ev.data === 'stop') {
-
-    console.log((new Date().getTime() - state.start) / 1000);
-
     const ret = Module._encoder_flush(state.encoder, state.coded_ptr, state.coded.length);
-    console.log('flushed ' + ret);
 
     if (ret > 0) {
       state.data.set(new Uint8Array(Module.HEAP8.buffer, state.coded_ptr, ret), state.data_len);
@@ -84,8 +75,6 @@ onmessage = (ev) => {
     state.data = new Uint8Array(data_sz);
     state.data_len = 0;
     state.start = null;
-
-    postMessage('stop');
   } else if (ev.data === 'destroy') {
     deinit();
     postMessage('destroy');

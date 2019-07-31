@@ -63,8 +63,6 @@ class Recorder {
         } else if (ev.data === 'init') {
           this.worker = worker;
           res();
-        } else if (ev.data === 'stop') {
-          console.log('WORKER STOP');
         } else if (ev.data === 'destroy') {
           this.worker = null;
         }
