@@ -2,10 +2,18 @@ const recorder = new Recorder({
   workerURL: '/dist/recorder.worker.js',
 });
 
+recorder.init().then(() => {
+  console.log('recorder initialized');
+}).catch((err) => {
+  console.log(err);
+});
+
 function start() {
   console.log('start');
   recorder.start().then(() => {
     console.log('recorder started');
+  }).catch((err) => {
+    console.log(err);
   });
   recorder.on('data', (data) => {
     const url = URL.createObjectURL(data);

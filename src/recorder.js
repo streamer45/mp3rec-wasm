@@ -10,7 +10,6 @@ class Recorder {
     this.startTime = 0;
     this.stopTime = 0;
     this.numSamples = config.numSamples || 4096;
-    this._startWorker();
   }
 
   _startCapture() {
@@ -49,12 +48,12 @@ class Recorder {
     }
   }
 
-  _startWorker() {
+  init() {
+    if (this.worker) return Promise.reject(new Error('recorder already initialized'));
     return new Promise((res, rej) => {
       const worker = new Worker(this.workerURL);
       worker.onmessage = (ev) => {
         if (ev.data instanceof Uint8Array) {
-          console.log('got mp3 data: ' + ev.data.length);
           const blob = new Blob([ev.data], {type: 'audio/mpeg'});
           const duration = this.stopTime - this.startTime;
           this.stopTime = 0;
@@ -75,6 +74,9 @@ class Recorder {
 
   start() {
     if (!this.audioCtx) {
+      if (!this.worker) {
+        return Promise.reject(new Error('Worker is not initialized'));
+      }
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) {
         return Promise.reject(new Error('AudioCtx unsupported'));
@@ -107,15 +109,19 @@ class Recorder {
     this.procNode.disconnect(this.muteNode);
     this.muteNode.disconnect(this.audioCtx.destination);
     this.mediaStream.getTracks()[0].stop();
-    //this.audioCtx.close();
-    //this.audioCtx = null;
-    this.stopTime = new Date().getTime();
     this.mediaStream = null;
+    this.stopTime = new Date().getTime();
     this.worker.postMessage('stop');
   }
 
   destroy() {
-    if (this.worker) this.worker.postMessage('destroy');
+    if (this.audioCtx) {
+      this.audioCtx.close();
+      this.audioCtx = null;
+    }
+    if (this.worker) {
+      this.worker.postMessage('destroy');
+    }
   }
 
   on(event, cb) {
