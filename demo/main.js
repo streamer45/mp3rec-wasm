@@ -15,15 +15,15 @@ function start() {
   }).catch((err) => {
     console.log(err);
   });
-  recorder.on('data', (data) => {
-    const url = URL.createObjectURL(data);
-    document.getElementById('recording').innerHTML = `<audio controls="controls">
-        <source src="${url}" type="audio/mpeg"></source>
-       </audio>`;
-  });
 }
 
 function stop() {
   console.log('stop');
-  recorder.stop();
+  recorder.stop().then(({blob, duration}) => {
+    console.log(duration);
+    const url = URL.createObjectURL(blob);
+    document.getElementById('recording').innerHTML = `<audio controls="controls">
+        <source src="${url}" type="audio/mpeg"></source>
+       </audio>`;
+  });
 }

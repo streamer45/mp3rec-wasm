@@ -105,13 +105,16 @@ class Recorder {
   }
 
   stop() {
-    this.srcNode.disconnect(this.procNode);
-    this.procNode.disconnect(this.muteNode);
-    this.muteNode.disconnect(this.audioCtx.destination);
-    this.mediaStream.getTracks()[0].stop();
-    this.mediaStream = null;
-    this.stopTime = new Date().getTime();
-    this.worker.postMessage('stop');
+    return new Promise((res, rej) => {
+      this._onData = (blob, duration) => res({blob, duration});
+      this.srcNode.disconnect(this.procNode);
+      this.procNode.disconnect(this.muteNode);
+      this.muteNode.disconnect(this.audioCtx.destination);
+      this.mediaStream.getTracks()[0].stop();
+      this.mediaStream = null;
+      this.stopTime = new Date().getTime();
+      this.worker.postMessage('stop');
+    });
   }
 
   destroy() {
@@ -122,12 +125,6 @@ class Recorder {
     if (this.worker) {
       this.worker.postMessage('destroy');
     }
-  }
-
-  on(event, cb) {
-    if (event !== 'data') return;
-    if (cb instanceof Function === false) return;
-    this._onData = cb;
   }
 }
 
