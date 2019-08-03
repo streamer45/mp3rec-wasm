@@ -10,6 +10,38 @@ class Recorder {
     this.startTime = 0;
     this.stopTime = 0;
     this.numSamples = config.numSamples || 4096;
+    this.bitRate = 64;
+    this.maxDuration = 300;
+    this._onData = null;
+    this._onMaxDuration = null;
+  }
+
+  _loadConfig(config) {
+    if (!config) return;
+
+    if (config.maxDuration) {
+      if (typeof config.maxDuration !== 'number') {
+        throw new Error('config.maxDuration should be a number');
+      }
+
+      if (config.maxDuration < 0 || config.maxDuration > 3600) {
+        throw new Error('config.maxDuration should be in [0, 3600]');
+      }
+
+      this.maxDuration = Math.round(config.maxDuration);
+    }
+
+    if (config.bitRate) {
+      if (typeof config.bitRate !== 'number') {
+        throw new Error('config.bitRate should be a number');
+      }
+
+      if (config.bitRate < 32 || config.bitRate > 320) {
+        throw new Error('config.bitRate should be in [32, 320]');
+      }
+
+      this.bitRate = Math.round(config.bitRate);
+    }
   }
 
   _startCapture() {
@@ -39,17 +71,26 @@ class Recorder {
   }
 
   _audioProcess(ev) {
-    if (!this.startTime) {
-      this.startTime = new Date().getTime();
-    }
+    if (!this.startTime) this.startTime = new Date().getTime();
     if (this.worker) {
       const samples = ev.inputBuffer.getChannelData(0);
+      const duration = new Date().getTime() - this.startTime;
+      if (duration >= (this.maxDuration * 1000)) {
+        if (this._onMaxDuration) return this._onMaxDuration();
+        this.stop();
+        throw new Error('maxDuration reached and callback not defined');
+      }
       this.worker.postMessage(samples, [samples.buffer]);
     }
   }
 
-  init() {
-    if (this.worker) return Promise.reject(new Error('recorder already initialized'));
+  init(config) {
+    if (this.worker) return Promise.reject(new Error('Recorder already initialized'));
+    try {
+      this._loadConfig(config);
+    } catch (err) {
+      return Promise.reject(err);
+    }
     return new Promise((res, rej) => {
       const worker = new Worker(this.workerURL);
       worker.onmessage = (ev) => {
@@ -62,8 +103,9 @@ class Recorder {
         } else if (ev.data === 'init') {
           this.worker = worker;
           res();
-        } else if (ev.data === 'destroy') {
+        } else if (ev.data === 'deinit') {
           this.worker = null;
+          if (this._onDeinit) this._onDeinit();
         }
       };
       worker.onerror = (err) => {
@@ -75,7 +117,7 @@ class Recorder {
   start() {
     if (!this.audioCtx) {
       if (!this.worker) {
-        return Promise.reject(new Error('Worker is not initialized'));
+        return Promise.reject(new Error('Recorder is not initialized'));
       }
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) {
@@ -84,10 +126,10 @@ class Recorder {
       this.audioCtx = new AudioContext();
       this.worker.postMessage({
         sampleRate: this.audioCtx.sampleRate,
-        bitRate: 64,
+        bitRate: this.bitRate,
         channels: 1,
         numSamples: this.numSamples,
-        maxDuration: 300, // 5 minutes
+        maxDuration: this.maxDuration,
       });
     }
     return this._startCapture().then((stream) => {
@@ -106,6 +148,7 @@ class Recorder {
 
   stop() {
     return new Promise((res, rej) => {
+      if (!this.audioCtx || !this.worker) return rej(new Error('Recorder not initialized'));
       this._onData = (blob, duration) => res({blob, duration});
       this.srcNode.disconnect(this.procNode);
       this.procNode.disconnect(this.muteNode);
@@ -117,13 +160,28 @@ class Recorder {
     });
   }
 
-  destroy() {
-    if (this.audioCtx) {
-      this.audioCtx.close();
-      this.audioCtx = null;
-    }
-    if (this.worker) {
-      this.worker.postMessage('destroy');
+  deinit() {
+    return new Promise((res, rej) => {
+      if (this.audioCtx) {
+        this.audioCtx.close();
+        this.audioCtx = null;
+      }
+      if (!this.worker) return rej(new Error('Recorder not initialized'));
+      if (this.worker) {
+        this._onDeinit = () => {
+          this.startTime = 0;
+          this.stopTime = 0;
+          this._onMaxDuration = null;
+          res();
+        };
+        this.worker.postMessage('deinit');
+      }
+    });
+  }
+
+  on(type, cb) {
+    if (type === 'maxduration') {
+      this._onMaxDuration = cb;
     }
   }
 }

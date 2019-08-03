@@ -10,7 +10,6 @@ const state = {
   coded: null,
   data: null,
   data_len: 0,
-  start: null,
   initialized: false,
 };
 
@@ -36,18 +35,16 @@ function init(config) {
 }
 
 function deinit() {
-  Module._enc_destroy(state.encoder);
+  Module._encoder_destroy(state.encoder);
   Module._free(state.samples_ptr);
   Module._free(state.coded_ptr);
   state.data = null;
   state.data_len = 0;
-  state.start = null;
   state.initialized = false;
 }
 
 onmessage = (ev) => {
   if (ev.data instanceof Float32Array) {
-    if (!state.start) state.start = new Date().getTime();
     const nsamples = ev.data.length;
     state.samples.set(ev.data);
     const ret = Module._encoder_encode(state.encoder, state.samples_ptr,
@@ -74,10 +71,9 @@ onmessage = (ev) => {
 
     state.data = new Uint8Array(data_sz);
     state.data_len = 0;
-    state.start = null;
-  } else if (ev.data === 'destroy') {
+  } else if (ev.data === 'deinit') {
     deinit();
-    postMessage('destroy');
+    postMessage('deinit');
     self.close();
   } else if (ev.data instanceof Object) {
     if (!state.initialized) init(ev.data);
