@@ -64,13 +64,17 @@ onmessage = (ev) => {
     }
 
     const mp3 = state.data.subarray(0, state.data_len);
-
     const data_sz = state.data.length;
 
     postMessage(mp3, [mp3.buffer]);
 
     state.data = new Uint8Array(data_sz);
     state.data_len = 0;
+  } else if (ev.data === 'cancel') {
+    const data_sz = state.data.length;
+    state.data = new Uint8Array(data_sz);
+    state.data_len = 0;
+    postMessage('cancel');
   } else if (ev.data === 'deinit') {
     deinit();
     postMessage('deinit');

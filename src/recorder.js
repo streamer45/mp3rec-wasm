@@ -12,7 +12,9 @@ class Recorder {
     this.numSamples = config.numSamples || 4096;
     this.bitRate = 64;
     this.maxDuration = 300;
+    this._onCancel = null;
     this._onData = null;
+    this._onDeinit = null;
     this._onMaxDuration = null;
   }
 
@@ -70,6 +72,14 @@ class Recorder {
     });
   }
 
+  _stopCapture() {
+    this.muteNode.disconnect(this.audioCtx.destination);
+    this.procNode.disconnect(this.muteNode);
+    this.srcNode.disconnect(this.procNode);
+    this.mediaStream.getTracks()[0].stop();
+    this.mediaStream = null;
+  }
+
   _audioProcess(ev) {
     if (!this.startTime) this.startTime = new Date().getTime();
     if (this.worker) {
@@ -100,6 +110,8 @@ class Recorder {
           this.stopTime = 0;
           this.startTime = 0;
           if (this._onData) this._onData(blob, duration);
+        } else if (ev.data === 'cancel') {
+          if (this._onCancel) this._onCancel();
         } else if (ev.data === 'init') {
           this.worker = worker;
           res();
@@ -149,14 +161,23 @@ class Recorder {
   stop() {
     return new Promise((res, rej) => {
       if (!this.audioCtx || !this.worker) return rej(new Error('Recorder not initialized'));
+      if (!this.mediaStream) return rej(new Error('Recorder not started'));
       this._onData = (blob, duration) => res({blob, duration});
-      this.srcNode.disconnect(this.procNode);
-      this.procNode.disconnect(this.muteNode);
-      this.muteNode.disconnect(this.audioCtx.destination);
-      this.mediaStream.getTracks()[0].stop();
-      this.mediaStream = null;
+      this._stopCapture();
       this.stopTime = new Date().getTime();
       this.worker.postMessage('stop');
+    });
+  }
+
+  cancel() {
+    return new Promise((res, rej) => {
+      if (!this.audioCtx || !this.worker) return rej(new Error('Recorder not initialized'));
+      if (!this.mediaStream) return rej(new Error('Recorder not started'));
+      this.startTime = 0;
+      this.stopTime = 0;
+      this._stopCapture();
+      this._onCancel = () => res();
+      this.worker.postMessage('cancel');
     });
   }
 

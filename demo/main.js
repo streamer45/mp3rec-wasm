@@ -47,3 +47,12 @@ function stop() {
     console.log(err);
   });
 }
+
+function cancel() {
+  console.log('cancel');
+  recorder.cancel().then(() => {
+    console.log('canceled');
+  }).catch((err) => {
+    console.log(err);
+  });
+}
