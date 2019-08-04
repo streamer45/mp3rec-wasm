@@ -76,6 +76,7 @@ class Recorder {
     this.muteNode.disconnect(this.audioCtx.destination);
     this.procNode.disconnect(this.muteNode);
     this.srcNode.disconnect(this.procNode);
+    this.procNode.onaudioprocess = null;
     this.mediaStream.getTracks()[0].stop();
     this.mediaStream = null;
   }
@@ -173,9 +174,9 @@ class Recorder {
     return new Promise((res, rej) => {
       if (!this.audioCtx || !this.worker) return rej(new Error('Recorder not initialized'));
       if (!this.mediaStream) return rej(new Error('Recorder not started'));
+      this._stopCapture();
       this.startTime = 0;
       this.stopTime = 0;
-      this._stopCapture();
       this._onCancel = () => res();
       this.worker.postMessage('cancel');
     });
