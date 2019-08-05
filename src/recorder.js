@@ -91,7 +91,7 @@ class Recorder {
         this.stop();
         throw new Error('maxDuration reached and callback not defined');
       }
-      this.worker.postMessage(samples, [samples.buffer]);
+      this.worker.postMessage(samples);
     }
   }
 
